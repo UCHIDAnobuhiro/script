@@ -1,0 +1,23 @@
+#!/bin/bash
+
+FILE_LARGE=$1
+TIME_LOG=$2
+OUTPUT_FILE=$3
+
+TIME=`cat $TIME_LOG | awk 'END{print}'`
+
+#整数に変換
+INT_FILE_LARGE=`echo $FILE_LARGE`
+INT_TIME=`echo $TIME`
+
+#debug用
+#echo $INT_FILE_LARGE
+#echo $INT_TIME
+
+
+THROUGHPUT=`echo $INT_FILE_LARGE $INT_TIME | awk '{print $1 / $2}'`
+MB_THROUGHPUT=`echo $THROUGHPUT 1000000 | awk '{print $1 / $2}'`
+
+echo $MB_THROUGHPUT Mbit/s
+echo $MB_THROUGHPUT >> $OUTPUT_FILE
+
